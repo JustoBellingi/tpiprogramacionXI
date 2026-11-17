@@ -21,9 +21,15 @@ export function ProductoCard({ producto }: { producto: Producto }) {
 
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition hover:shadow-md">
-      <div className="relative aspect-[3/2] bg-stone-100">
+      {/* Recuadro fijo 3:2. La imagen va en absolute para que su tamaño real no estire la tarjeta. */}
+      <div className="relative aspect-[3/2] shrink-0 overflow-hidden bg-stone-100">
         {producto.imagen_url ? (
-          <img src={producto.imagen_url} alt={producto.nombre} loading="lazy" className="size-full object-cover" />
+          <img
+            src={producto.imagen_url}
+            alt={producto.nombre}
+            loading="lazy"
+            className="absolute inset-0 size-full object-cover"
+          />
         ) : (
           <div className="flex size-full items-center justify-center text-4xl">🍽️</div>
         )}
