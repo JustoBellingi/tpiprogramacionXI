@@ -23,7 +23,9 @@ CATEGORIAS = [
     {"nombre": "Pizzas", "descripcion": "Pizzas a la piedra"},
     {"nombre": "Hamburguesas", "descripcion": "Hamburguesas caseras con papas"},
     {"nombre": "Empanadas", "descripcion": "Empanadas al horno"},
-    {"nombre": "Bebidas", "descripcion": "Gaseosas, aguas y cervezas"},
+    {"nombre": "Bebidas", "descripcion": "Gaseosas, aguas, cervezas y café"},
+    {"nombre": "Entradas", "descripcion": "Para picar y compartir"},
+    {"nombre": "Postres", "descripcion": "El final dulce"},
 ]
 
 
@@ -46,6 +48,11 @@ PRODUCTOS = [
     ("Bebidas", "Gaseosa 1.5 L", "Línea cola", 3200, 30, "gaseosa"),
     ("Bebidas", "Agua sin gas 500 ml", "Agua mineral", 1500, 50, "agua-sin-gas"),
     ("Bebidas", "Cerveza artesanal 500 ml", "Golden Ale", 4200, 24, "cerveza-artesanal"),
+    ("Bebidas", "Café", "Café negro recién hecho", 2200, 40, "cafe"),
+    ("Entradas", "Bastones de muzzarella", "Rebozados, con salsa de tomate", 6800, 20, "bastones-muzzarella"),
+    ("Entradas", "Rabas", "Anillos de calamar fritos con limón", 9800, 15, "rabas"),
+    ("Postres", "Flan con dulce de leche y crema", "Flan casero con dulce de leche y crema", 4500, 20, "flan-dulce-crema"),
+    ("Postres", "Tiramisú", "Vainillas, café, mascarpone y cacao", 5200, 15, "tiramisu"),
 ]
 
 

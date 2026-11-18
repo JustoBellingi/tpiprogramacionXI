@@ -1,6 +1,6 @@
 import { isAxiosError } from 'axios'
 
-export const CUENTA_DESACTIVADA = 'Cuenta de usuario desactivada'
+export const CUENTA_DESACTIVADA = 'La cuenta ha sido desactivada'
 
 interface ErrorValidacion {
   msg: string
@@ -13,7 +13,7 @@ function esErrorValidacion(valor: unknown): valor is ErrorValidacion {
 
 export function handleApiError(error: unknown): string {
   if (isAxiosError(error)) {
-    if (!error.response) return 'No se pudo conectar con el servidor. ¿Está corriendo el backend?'
+    if (!error.response) return 'No se pudo conectar con el servidor.'
     const detail: unknown = (error.response.data as { detail?: unknown } | undefined)?.detail
     if (typeof detail === 'string') return detail
     if (Array.isArray(detail)) {

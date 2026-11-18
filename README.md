@@ -1,14 +1,14 @@
-# 🍕 Food Store — Trabajo Práctico Integrador (Programación 4)
+# Food Store — Trabajo Práctico Integrador (Programación 4)
 
-Aplicación web para un negocio de comidas: los clientes recorren el catálogo, arman un carrito y confirman pedidos; el administrador gestiona categorías, productos, stock, pedidos y usuarios.
+Aplicación web para un negocio de comidas donde los clientes recorren el catalogo y arma su pedido y el administrador gestiona categorias, stocks, productos y los pedidos. 
 
 - **Backend:** FastAPI + SQLModel + PostgreSQL, arquitectura en capas (Router → Service → Unit of Work → Repository → Model), JWT en cookie HttpOnly y autorización por roles.
 - **Frontend:** React 19 + TypeScript (strict) + Vite + Tailwind CSS, TanStack Query / Form / Table, Zustand y Axios.
 
 | | |
 |---|---|
-| **Repositorio** | `https://github.com/TU-USUARIO/food-store` ← _reemplazar por la URL real_ |
-| **Video de demostración** | `https://...` ← _reemplazar por el link público_ |
+| **Repositorio** | `https://github.com/JustoBellingi/tpiprogramacionXI` |
+| **Video** | ` https://youtu.be/LY_-BQAWVnw` |
 
 ---
 
@@ -21,10 +21,8 @@ Aplicación web para un negocio de comidas: los clientes recorren el catálogo, 
 | Node.js | 20.19 o superior |
 | pnpm | 9 o superior (`npm install -g pnpm`) |
 
-## Usuarios del seed
+# informacion para acceder
 
-| Rol | Usuario | Contraseña |
-|---|---|---|
 | admin | `admin` | `Admin1234!` |
 | user (cliente demo) | `cliente` | `Cliente1234!` |
 
@@ -40,8 +38,6 @@ Todos los comandos se ejecutan dentro de la carpeta `backend/`.
 psql -U postgres -c "CREATE DATABASE foodstore_db;"
 ```
 
-> ¿Sin PostgreSQL? Podés saltear este paso y usar SQLite: en el `.env` poné `DATABASE_URL=sqlite:///./foodstore.db`.
-
 ### 1.2 Instalar y configurar
 
 ```bash
@@ -52,7 +48,7 @@ cp .env.example .env
 
 ```
 
-### 1.3 Cargar datos iniciales y ejecutar
+### 1.3 Cargar datos iniciales 
 
 ```bash
 python -m app.db.seed       
@@ -62,12 +58,10 @@ uvicorn app.main:app --reload
 - API: <http://localhost:8000/api/v1>
 - Documentación: <http://localhost:8000/docs> (Swagger) y <http://localhost:8000/redoc>
 
-> Para probar endpoints protegidos desde `/docs`: ejecutá primero `POST /auth/token` con usuario y contraseña. El navegador guarda la cookie y la manda en las siguientes peticiones.
+> Para probar endpoints protegidos desde `/docs`: ejecutá primero `POST /auth/token` con el usuario y contraseña. 
 
 ### 1.4 Variables de entorno (`backend/.env`)
 
-| Variable | Descripción | Ejemplo |
-|---|---|---|
 | `DATABASE_URL` | Conexión a la base | `postgresql://user:pass@localhost:5432/foodstore_db` (desarrollo: `sqlite:///./foodstore.db`) |
 | `SECRET_KEY` | Firma del JWT, mínimo 32 caracteres | `cambiar-esta-clave-de-al-menos-32-caracteres` |
 | `ALGORITHM` | Algoritmo del JWT | `HS256` |
@@ -78,7 +72,7 @@ uvicorn app.main:app --reload
 
 ## 2. Frontend
 
-Todos los comandos se ejecutan dentro de la carpeta `frontend/`, con el backend corriendo.
+Todos los comandos se ejecutan dentro de la carpeta `frontend/`, con el backend funcionando.
 
 ```bash
 cd frontend
@@ -90,14 +84,10 @@ pnpm dev
 
 ### Variables de entorno (`frontend/.env`)
 
-| Variable | Descripción | Ejemplo |
 |---|---|---|
 | `VITE_API_URL` | URL base de la API | `http://localhost:8000/api/v1` |
 
-> **Importante:** abrí la app en `http://localhost:5173` (no en `127.0.0.1`). La cookie de sesión se asocia al nombre de host, así que el frontend y la API tienen que usar los dos `localhost`.
-
 ---
-
 ## 3. Estructura del proyecto
 
 ```
@@ -146,9 +136,10 @@ Todos bajo `/api/v1`. El detalle completo (schemas, códigos de error) está en 
 
 ## 5. Reglas de negocio implementadas
 
-- **RN-01** Crear pedido en una sola transacción (Unit of Work): sin ítems repetidos; cada producto activo, disponible y con stock; descuento de stock y copia de nombre y precio en cada línea. Si algo falla, rollback total.
+- **RN-01** Crear pedido en una sola transacción: sin ítems repetidos; cada producto activo, disponible y con stock; descuento de stock y copia de nombre y precio en cada línea.
 - **RN-02** Máquina de estados `PENDIENTE → EN_PREPARACION → ENTREGADO`, con `CANCELADO` desde los dos primeros. Transición inválida: 400.
 - **RN-03** Cancelar restituye el stock en la misma transacción.
 - **RN-04** El cliente solo ve y cancela sus pedidos (y solo en `PENDIENTE`); el admin ve todos y avanza o cancela.
 - **RN-05** Líneas y total inmutables: no hay endpoints de edición ni borrado de pedidos.
-- **RN-06** `forma_pago` ∈ {EFECTIVO, TRANSFERENCIA}; `direccion_entrega` de 5 a 200 caracteres (validado en el schema).
+- **RN-06** `forma_pago` ∈ {EFECTIVO, TRANSFERENCIA}; 
+- **RN-07** `direccion_entrega` de 5 a 200 caracteres (validado en el schema).

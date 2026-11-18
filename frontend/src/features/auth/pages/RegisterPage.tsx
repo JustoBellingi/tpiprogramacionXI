@@ -91,7 +91,7 @@ export function RegisterPage() {
             validators={{
               onChangeListenTo: ['password'],
               onChange: ({ value, fieldApi }) =>
-                value !== fieldApi.form.getFieldValue('password') ? 'Las contraseñas no coinciden' : undefined,
+                value !== fieldApi.form.getFieldValue('password') ? 'Las contraseñas no son iguales' : undefined,
             }}
           >
             {(field) => (
